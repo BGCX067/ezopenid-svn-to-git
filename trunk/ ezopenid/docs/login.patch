@@ -1,0 +1,53 @@
+Index: kernel/user/login.php
+===================================================================
+--- kernel/user/login.php	(revision 1)
++++ kernel/user/login.php	(revision 879)
+@@ -47,19 +47,29 @@
+     $siteAccessName = $Params['SiteAccessName'];
+ 
+ $postData = ''; // Will contain post data from previous page.
++
+ if ( $http->hasSessionVariable( '$_POST_BeforeLogin' ) )
+ {
+     $postData = $http->sessionVariable( '$_POST_BeforeLogin' );
+     $http->removeSessionVariable( '$_POST_BeforeLogin' );
+ }
+ 
+-if ( $Module->isCurrentAction( 'Login' ) and
++if ( ($Module->isCurrentAction( 'Login' ) and
+      $Module->hasActionParameter( 'UserLogin' ) and
+      $Module->hasActionParameter( 'UserPassword' ) and
+-     !$http->hasPostVariable( "RegisterButton" )
++     !$http->hasPostVariable( "RegisterButton" )) 
++     or 
++     ( $http->hasPostVariable( "OpenIDURL") or 
++     $http->hasSessionVariable('OpenIDURL')
+      )
++     or
++     ( $http->hasPostVariable( "token") or 
++     $http->hasSessionVariable('Token') 
++     )
++   )
+ {
+     $userLogin = $Module->actionParameter( 'UserLogin' );
++      
+     $userPassword = $Module->actionParameter( 'UserPassword' );
+     $userRedirectURI = $Module->actionParameter( 'UserRedirectURI' );
+ 
+@@ -93,10 +103,13 @@
+     }
+ 
+     $user = false;
+-    if ( $userLogin != '' )
+-    {
++   // if ( $userLogin != '' )
++   // hack!
++   if ( $userLogin !='' 
++   	or $http->hasPostVariable( "OpenIDURL") or  $http->hasSessionVariable('OpenIDURL') 
++   	or $http->hasPostVariable( "token") or $http->hasSessionVariable('Token') )
++   {
+         $http->removeSessionVariable( 'RedirectAfterLogin' );
+-
+         $ini = eZINI::instance();
+         if ( $ini->hasVariable( 'UserSettings', 'LoginHandler' ) )
+         {

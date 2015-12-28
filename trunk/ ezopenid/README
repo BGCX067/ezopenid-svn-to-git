@@ -1,0 +1,23 @@
+OPENID login handler EXTENSION
+------------------
+Based on the OpenID extension (alpha 0.1) by Bruce Morrison for eZ publish (http://projects.ez.no/openid) 
+
+Version 1 developed by Contactivity
+http://www.contactivity.com
+------------------------------------------------------------------
+If you're experiencing problems installing, configuring, or using this extension and require professional support, please contact: 
+info@contactivity.com. 
+
+The openid extension is meant to allow users to sign-in using an OpenID or through their Google, FaceBook or Twitter account.
+
+This extension differs from the version by Bruce Morrison:
+- It is implemented as a login handler, in order to avoid code duplication. However, this does require several kernel changes to user/login;
+- In addition to OpenID it also has RPX implemented (https://rpxnow.com/);
+- It uses an updated version of the OpenID for PHP code library;
+- This version has been implemented without the automatic creation of user accounts. 
+We implement this functionality only on demand: please contact info@contactivity.com for more information about professional support.
+
+
+Installation
+---------------
+See docs/install.txt for more info

@@ -1,0 +1,20 @@
+OpenID EXTENSION
+------------------
+
+INSTALLATION INSTRUCTIONS
+-------------------------
+If you're experiencing problems installing, configuring, or using this extension and require professional support, please contact: info@contactivity.com
+
+The openid extension is meant to allow users to sign-in using an OpenID or through their Google, FaceBook or Twitter account.
+
+1. Unzip the files, copy them to the "extension/openid" directory of eZ Publish;
+
+2. Activate the extension in the admin interface;
+
+3. Modify the module.ini.append.php file:
+	1. Get api key at: https://rpxnow.com/, and add it to the APIKey setting;
+	2. Create a widget and get your RPX URL, e.g.: yoursite-login.rpxnow.com
+	3. Add a class attribute (string) called 'openid' to your user class and add the class attribute id to the module.ini.append.php file;
+	4. Implement the patch to kernel/user/login.php (see login.patch);
+	
+
